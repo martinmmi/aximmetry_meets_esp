@@ -30,14 +30,14 @@ char buf_humidity[20];
 WiFiUDP udp;
 
 //set up to connect to an existing network
-const char* ssid = "AirDoLan";
+const char* ssid = "Starlink MMG";
 const char* password = "mmg1199#";
 
 //const char* ssid = "Karli68";
 //const char* password = "xxxxx";
 
 //IP address to send UDP data to:
-const char *udpAddress = "192.168.1.75";
+const char *udpAddress = "192.168.1.21";
 const int udpPort = 3333;
 
 Adafruit_BME280 bme; // I2C
@@ -121,7 +121,43 @@ void loop()
 
       udp.beginPacket(udpAddress, udpPort);
 
-      Serial.print("Seconds since boot: "); Serial.print(boottime); Serial.print(" Temperature: "); Serial.print(temperature); Serial.print(" C "); Serial.print(" Pressure: "); Serial.print(pressure); Serial.print(" hPa "); Serial.print(" Humidity: "); Serial.print(humidity); Serial.println(" %");
+      //Serial.print("Seconds since boot: "); Serial.print(boottime); Serial.print(" Temperature: "); Serial.print(temperature); Serial.print(" C "); Serial.print(" Pressure: "); Serial.print(pressure); Serial.print(" hPa "); Serial.print(" Humidity: "); Serial.print(humidity); Serial.println(" %");
+      
+      Serial.println(0xd1);
+
+      udp.print(0xd1);
+      udp.print(0xff);
+      udp.print(0x27);
+      udp.print(0x24);
+      udp.print(0x92);
+      udp.print(0xf1);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x00);
+      udp.print(0x05);
+      udp.print(0x5a);
+      udp.print(0x00);
+      udp.print(0x05);
+      udp.print(0x55);
+      udp.print(0x0f);
+      udp.print(0xff);
+      udp.print(0xdb);
+
+
+      /*
+
       
       udp.printf("Seconds since boot: ");
       udp.printf(buf_boottime);
@@ -135,6 +171,7 @@ void loop()
       udp.printf(buf_humidity);
       udp.printf(" %");
       udp.endPacket();
+      */
       
       digitalWrite(LED_PIN_INTERNAL, HIGH);
       delay(50);
